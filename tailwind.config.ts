@@ -11,6 +11,15 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        deepBlue: "#1E3A8A",
+        slateGray: "#64748B",
+        accent: "#F43F5E", // Umbrella accent color
+      },
+      fontFamily: {
+        sans: ["Inter", "sans-serif"],
+      },
+      backgroundImage: {
+        "hero-pattern": "url('/hero-bg2.jpg')",
       },
     },
   },
