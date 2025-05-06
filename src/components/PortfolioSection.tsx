@@ -8,36 +8,32 @@ const PortfolioSection = () => {
 
   const projects = [
     {
-      title: "FinTech Payment Gateway",
+      title: "FinTech Banking Applications - Pilla, Syarpa",
       description:
-        "Secure payment processing system with real-time transaction monitoring",
+        "Secure Mobile banking and payment processing system with real-time transaction monitoring",
       category: "fintech",
-      tags: ["Node.js", "React", "AWS Lambda", "Stripe API"],
-      image: "/api/placeholder/600/400",
+      tags: ["Node.js", "React", "Express.ts", "Stripe API"],
+      image: "/images/pilla.png",
       links: {
         live: "#",
         github: "#",
       },
-      highlights: [
-        "Processed over $1M in transactions",
-        "99.99% uptime",
-        "PCI DSS compliant",
-      ],
+      highlights: ["99.99% uptime", "PCI DSS compliant"],
     },
     {
-      title: "Cloud-Native Banking API",
-      description: "Microservices architecture for banking operations",
-      category: "fintech",
-      tags: ["Kubernetes", "Go", "AWS EKS", "MongoDB"],
-      image: "/api/placeholder/600/400",
+      title: "Birthday Wishlist application",
+      description: "Share and manage your wishlists with ease",
+      category: "lifestyle",
+      tags: ["Firebase", "HTML", "Tailwind", "Javascript", "Serverless"],
+      image: "/images/wishful.png",
       links: {
-        live: "#",
-        github: "#",
+        live: "https://bewishful.netlify.app",
+        github: "https://github.com/Thi-mee/birthday-wishlist",
       },
       highlights: [
-        "Handles 1000+ requests/second",
-        "Auto-scaling infrastructure",
-        "OAuth2 security",
+        "Dynamic creation of pages",
+        "Handles serverless requests",
+        "Vanilla.js SPA",
       ],
     },
     {
@@ -50,11 +46,7 @@ const PortfolioSection = () => {
         live: "#",
         github: "#",
       },
-      highlights: [
-        "10,000+ active students",
-        "Real-time collaboration",
-        "AI-powered recommendations",
-      ],
+      highlights: ["2,000+ active students", "Real-time collaboration"],
     },
     {
       title: "TicTacToe Game",
@@ -83,78 +75,83 @@ const PortfolioSection = () => {
   ];
 
   const filteredProjects = projects.filter(
-    (project) => activeFilter === "all" || project.category === activeFilter
+    (project) => activeFilter === "all" || project.category === activeFilter,
   );
 
   return (
-    <section className="py-20 bg-slate-900">
-      <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-4xl font-bold mb-8 text-slate-100">
+    <section className="bg-slate-900 py-20">
+      <div className="mx-auto max-w-6xl px-4">
+        <h2 className="mb-8 text-4xl font-bold text-slate-100">
           Featured Projects
         </h2>
 
         {/* Filters */}
-        <div className="flex gap-4 mb-12 flex-wrap">
+        <div className="mb-12 flex flex-wrap gap-4">
           {filters.map((filter) => (
             <button
               key={filter.value}
               onClick={() => setActiveFilter(filter.value)}
-              className={`px-4 py-2 rounded-full transition-colors ${
+              className={`rounded-full px-4 py-2 transition-colors ${
                 activeFilter === filter.value
                   ? "bg-blue-500 text-white"
                   : "bg-slate-800 text-slate-300 hover:bg-slate-700"
-              }`}>
+              }`}
+            >
               {filter.label}
             </button>
           ))}
         </div>
 
         {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid gap-8 md:grid-cols-2">
           {filteredProjects.map((project, i) => (
             <Card
               key={i}
-              className="bg-slate-800 border-slate-700 overflow-hidden hover:border-blue-500 transition-colors">
+              className="overflow-hidden border-slate-700 bg-slate-800 transition-colors hover:border-blue-500"
+            >
               <Image
                 src={project.image}
                 alt={project.title}
                 width={600}
                 height={400}
-                className="w-full h-48 object-cover"
+                className="h-48 w-full object-cover"
               />
               <CardHeader className="border-b border-slate-700">
-                <div className="flex justify-between items-start">
+                <div className="flex items-start justify-between">
                   <h3 className="text-xl font-semibold text-slate-100">
                     {project.title}
                   </h3>
                   <div className="flex gap-2">
                     <a
                       href={project.links.github}
-                      className="text-slate-400 hover:text-blue-500">
-                      <Github className="w-5 h-5" />
+                      className="text-slate-400 hover:text-blue-500"
+                    >
+                      <Github className="h-5 w-5" />
                     </a>
                     <a
                       href={project.links.live}
-                      className="text-slate-400 hover:text-blue-500">
-                      <ExternalLink className="w-5 h-5" />
+                      className="text-slate-400 hover:text-blue-500"
+                    >
+                      <ExternalLink className="h-5 w-5" />
                     </a>
                   </div>
                 </div>
                 <p className="text-slate-400">{project.description}</p>
               </CardHeader>
               <CardContent className="p-4">
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="mb-4 flex flex-wrap gap-2">
                   {project.tags.map((tag, i) => (
                     <span
                       key={i}
-                      className="px-2 py-1 text-xs rounded-full bg-slate-700 text-slate-300">
+                      className="rounded-full bg-slate-700 px-2 py-1 text-xs text-slate-300"
+                    >
                       {tag}
                     </span>
                   ))}
                 </div>
                 <ul className="space-y-2">
                   {project.highlights.map((highlight, i) => (
-                    <li key={i} className="text-slate-300 text-sm">
+                    <li key={i} className="text-sm text-slate-300">
                       • {highlight}
                     </li>
                   ))}
