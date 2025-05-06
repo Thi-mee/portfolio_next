@@ -2,7 +2,7 @@ import BlogPost from "@/components/blog/BlogPost";
 import React from "react";
 
 interface BlogPostProps {
-  params: {slug: string}
+  params: Promise<{ slug: string }>;
 }
 export default async function Page({ params }: BlogPostProps) {
   const slug = (await params).slug;

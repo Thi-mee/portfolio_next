@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X, Umbrella, ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 export const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -153,9 +154,12 @@ export const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="/blog" className="text-slate-400 hover:text-blue-500">
+                <Link
+                  href="/blog"
+                  className="text-slate-400 hover:text-blue-500"
+                >
                   Blog
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

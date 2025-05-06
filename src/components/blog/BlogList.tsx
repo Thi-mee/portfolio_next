@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import { Calendar, Clock, Tag, ChevronRight, Search } from "lucide-react";
+import { Calendar, Clock, ChevronRight, Search } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import Image from "next/image";
 
 const BlogList = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -53,13 +54,13 @@ const BlogList = () => {
 
   return (
     <div className="min-h-screen bg-slate-900 py-20">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="mx-auto max-w-6xl px-4">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-slate-100 mb-4">
+        <div className="mb-16 text-center">
+          <h1 className="mb-4 text-4xl font-bold text-slate-100">
             Insights & Perspectives
           </h1>
-          <p className="text-slate-400 max-w-2xl mx-auto">
+          <p className="mx-auto max-w-2xl text-slate-400">
             Exploring software development, cloud architecture, and technical
             education through in-depth articles and practical guides.
           </p>
@@ -67,17 +68,16 @@ const BlogList = () => {
 
         {/* Search and Filter */}
         <div className="mb-12">
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid gap-6 md:grid-cols-2">
             {/* Search */}
             <div className="relative">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400" />
+              <Search className="absolute top-1/2 left-4 -translate-y-1/2 transform text-slate-400" />
               <input
                 type="text"
                 placeholder="Search articles..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 bg-slate-800 border border-slate-700 rounded-lg 
-                         text-slate-100 focus:outline-none focus:border-blue-500"
+                className="w-full rounded-lg border border-slate-700 bg-slate-800 py-3 pr-4 pl-12 text-slate-100 focus:border-blue-500 focus:outline-none"
               />
             </div>
 
@@ -87,11 +87,12 @@ const BlogList = () => {
                 <button
                   key={tag}
                   onClick={() => setSelectedTag(tag)}
-                  className={`px-4 py-2 rounded-full transition-colors ${
+                  className={`rounded-full px-4 py-2 transition-colors ${
                     selectedTag === tag
                       ? "bg-blue-500 text-white"
                       : "bg-slate-800 text-slate-300 hover:bg-slate-700"
-                  }`}>
+                  }`}
+                >
                   {tag.charAt(0).toUpperCase() + tag.slice(1)}
                 </button>
               ))}
@@ -101,47 +102,48 @@ const BlogList = () => {
 
         {/* Featured Post */}
         {filteredPosts.find((post) => post.featured) && (
-          <Card className="mb-12 bg-slate-800 border-slate-700 overflow-hidden">
-            <div className="grid md:grid-cols-2 gap-6">
-              <img
-                src={filteredPosts.find((post) => post.featured).coverImage}
+          <Card className="mb-12 overflow-hidden border-slate-700 bg-slate-800">
+            <div className="grid gap-6 md:grid-cols-2">
+              <Image
+                src={filteredPosts.find((post) => post.featured)!.coverImage}
                 alt="Featured post"
                 className="h-full w-full object-cover"
               />
               <CardContent className="p-8">
-                <div className="flex items-center gap-4 text-sm text-slate-400 mb-4">
+                <div className="mb-4 flex items-center gap-4 text-sm text-slate-400">
                   <span className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4" />
+                    <Calendar className="h-4 w-4" />
                     {new Date(
-                      filteredPosts.find((post) => post.featured).date
+                      filteredPosts.find((post) => post.featured)!.date,
                     ).toLocaleDateString()}
                   </span>
                   <span className="flex items-center gap-2">
-                    <Clock className="w-4 h-4" />
-                    {filteredPosts.find((post) => post.featured).readTime}
+                    <Clock className="h-4 w-4" />
+                    {filteredPosts.find((post) => post.featured)!.readTime}
                   </span>
                 </div>
-                <h2 className="text-2xl font-bold text-slate-100 mb-4">
-                  {filteredPosts.find((post) => post.featured).title}
+                <h2 className="mb-4 text-2xl font-bold text-slate-100">
+                  {filteredPosts.find((post) => post.featured)!.title}
                 </h2>
-                <p className="text-slate-300 mb-6">
-                  {filteredPosts.find((post) => post.featured).excerpt}
+                <p className="mb-6 text-slate-300">
+                  {filteredPosts.find((post) => post.featured)!.excerpt}
                 </p>
                 <div className="flex items-center justify-between">
                   <div className="flex gap-2">
                     {filteredPosts
-                      .find((post) => post.featured)
+                      .find((post) => post.featured)!
                       .tags.map((tag) => (
                         <span
                           key={tag}
-                          className="px-3 py-1 text-sm rounded-full bg-slate-700 text-slate-300">
+                          className="rounded-full bg-slate-700 px-3 py-1 text-sm text-slate-300"
+                        >
                           {tag}
                         </span>
                       ))}
                   </div>
                   <button className="flex items-center gap-2 text-blue-500 hover:text-blue-400">
                     Read More
-                    <ChevronRight className="w-4 h-4" />
+                    <ChevronRight className="h-4 w-4" />
                   </button>
                 </div>
               </CardContent>
@@ -150,33 +152,34 @@ const BlogList = () => {
         )}
 
         {/* Blog Posts Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {filteredPosts
             .filter((post) => !post.featured)
             .map((post) => (
               <Card
                 key={post.id}
-                className="bg-slate-800 border-slate-700 overflow-hidden hover:border-blue-500 transition-colors">
-                <img
+                className="overflow-hidden border-slate-700 bg-slate-800 transition-colors hover:border-blue-500"
+              >
+                <Image
                   src={post.coverImage}
                   alt={post.title}
-                  className="w-full h-48 object-cover"
+                  className="h-48 w-full object-cover"
                 />
                 <CardContent className="p-6">
-                  <div className="flex items-center gap-4 text-sm text-slate-400 mb-4">
+                  <div className="mb-4 flex items-center gap-4 text-sm text-slate-400">
                     <span className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4" />
+                      <Calendar className="h-4 w-4" />
                       {new Date(post.date).toLocaleDateString()}
                     </span>
                     <span className="flex items-center gap-2">
-                      <Clock className="w-4 h-4" />
+                      <Clock className="h-4 w-4" />
                       {post.readTime}
                     </span>
                   </div>
-                  <h3 className="text-xl font-semibold text-slate-100 mb-3">
+                  <h3 className="mb-3 text-xl font-semibold text-slate-100">
                     {post.title}
                   </h3>
-                  <p className="text-slate-400 mb-4 line-clamp-3">
+                  <p className="mb-4 line-clamp-3 text-slate-400">
                     {post.excerpt}
                   </p>
                   <div className="flex items-center justify-between">
@@ -184,14 +187,15 @@ const BlogList = () => {
                       {post.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="px-2 py-1 text-xs rounded-full bg-slate-700 text-slate-300">
+                          className="rounded-full bg-slate-700 px-2 py-1 text-xs text-slate-300"
+                        >
                           {tag}
                         </span>
                       ))}
                     </div>
                     <button className="flex items-center gap-2 text-blue-500 hover:text-blue-400">
                       Read More
-                      <ChevronRight className="w-4 h-4" />
+                      <ChevronRight className="h-4 w-4" />
                     </button>
                   </div>
                 </CardContent>
