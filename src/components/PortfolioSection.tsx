@@ -57,17 +57,18 @@ const PortfolioSection = () => {
       ],
     },
     {
-      title: "DevOps Automation Suite",
-      description: "CI/CD pipeline automation tools",
-      category: "devops",
-      tags: ["Python", "Docker", "Jenkins", "Terraform"],
-      image: "/api/placeholder/600/400",
+      title: "TicTacToe Game",
+      description:
+        "Multi-player & Single-player TicTacToe game with AI opponent",
+      category: "Fun",
+      tags: ["HTML", "CSS", "JS", "Minimax", "OOP"],
+      image: "/images/tictactoe.png",
       links: {
-        live: "#",
-        github: "#",
+        live: "https://thi-mee.github.io/Tic-Tac-Toe____OOP",
+        github: "https://github.com/Thi-mee/Tic-Tac-Toe____OOP",
       },
       highlights: [
-        "Reduced deployment time by 70%",
+        "Minimax algoirthm for AI in hard mode",
         "Infrastructure as Code",
         "Automated testing",
       ],
